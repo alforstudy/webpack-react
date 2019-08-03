@@ -1,81 +1,36 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import BindEvent from '@/components/bindEvent.jsx'
+import React, { useState, useEffect, } from 'react';
+import ReactDOM from 'react-dom';
+import BindEvent from '@/components/bindEvent.jsx';
 
-// ReactDOM.render(<div>
-//     <BindEvent/>
-// </div>, document.getElementById("app"))
 
-function BoilingVerdict(props) {
-    if (props.celsius >= 100) {
-      return <p>The water would boil.</p>;
-    }
-    return <p>The water would not boil.</p>;
+function Counter() {
+    //定义state
+    const [count,setCount,] = useState(0);
+    const [fruit, setFruit,] = useState('banana');
+    const [todos, setTodos,] = useState([{ text: 'Learn Hooks', },]);
+    //页面重新渲染时触发
+    useEffect(()=>{
+        document.title = count;
+    });
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    },[count]); // 仅在 count 更改时更新
+    return <div>
+        <p>fruit:{fruit}</p>
+        <div>
+            {
+                todos.map((item, index) => {
+                    return <p key={index}>{item.text}</p>;
+                })
+            }
+        </div>
+        <p>Count:{count}</p>
+        <button onClick={()=>setCount(count+1)} >Count+1</button>
+    </div>;
 }
 
-const scaleNames = {
-    c: 'Celsius',
-    f: 'Fahrenheit'
-  };
-
-  class TemperatureInput extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
-      this.state = {temperature: ''};
-    }
-  
-    handleChange(e) {
-      this.setState({temperature: e.target.value});
-    }
-  
-    render() {
-      const temperature = this.state.temperature;
-      const scale = this.props.scale;
-      return (
-        <fieldset>
-          <legend>Enter temperature in {scaleNames[scale]}:</legend>
-          <input value={temperature}
-                 onChange={this.handleChange} />
-        </fieldset>
-      );
-    }
-  }
-  
-  
-
-
-
-class Calculator extends React.Component {
-  render() {
-    return (
-      <div>
-        <TemperatureInput scale="c" />
-        <TemperatureInput scale="f" />
-      </div>
-    );
-  }
-}  
-
-function toCelsius(fahrenheit) {
-    return (fahrenheit - 32) * 5 / 9;
-  }
-  
-function toFahrenheit(celsius) {
-return (celsius * 9 / 5) + 32;
-}
-
-function tryConvert(temperature, convert) {
-    const input = parseFloat(temperature);
-    if (Number.isNaN(input)) {
-      return '';
-    }
-    const output = convert(input);
-    const rounded = Math.round(output * 1000) / 1000;
-    return rounded.toString();
-}
 
 ReactDOM.render(<div>
-    <Calculator/>
-    </div>,document.getElementById("app"))
+    <Counter/>
+</div>,document.getElementById('app'));
 
