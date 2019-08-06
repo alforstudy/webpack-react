@@ -72,7 +72,7 @@ module.exports={
     "react/jsx-indent": [2,4], // 语法缩进控制
     "react/jsx-indent-props": [2, 4], //验证JSX中的props缩进是否为2个
     "react/jsx-key": 2, //在数组或迭代器中验证JSX具有key属性
-    "react/jsx-max-props-per-line": [1, {"maximum": 1}], // 限制JSX中单行上的props的最大数量
+    "react/jsx-max-props-per-line": [0, {"maximum": 1}], // 限制JSX中单行上的props的最大数量
     "react/jsx-no-bind": 0, //JSX中不允许使用箭头函数和bind
     "react/jsx-no-duplicate-props": 2, //防止在JSX中重复的props
     "react/jsx-no-literals": 0, //防止使用未包装的JSX字符串
@@ -85,7 +85,7 @@ module.exports={
     "react/no-did-mount-set-state": 0, //防止在componentDidMount中使用setState
     "react/no-did-update-set-state": 1, //防止在componentDidUpdate中使用setState
     "react/no-direct-mutation-state": 2, //防止this.state的直接变异
-    "react/no-multi-comp": 2, //防止每个文件有多个组件定义
+    "react/no-multi-comp": 0, //防止每个文件有多个组件定义
     "react/no-set-state": 0, //防止使用setState
     "react/no-unknown-property": 2, //防止使用未知的DOM属性
     "react/prefer-es6-class": 2, //为React组件强制执行ES5或ES6类
