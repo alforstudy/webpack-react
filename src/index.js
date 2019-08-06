@@ -1,60 +1,62 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import {observable,computed} from 'mobx';
-import {observer} from 'mobx-react';
+import {HashRouter, Route, Switch} from 'react-router-dom';
 
+function App(){
 
-class TodoList {
-    @observable todos = [];
-    @computed get unfinishedTodoCount() {
-        return this.todos.filter(todo => !todo.finished).length;
-    }
-}
-
-
-@observer
-class TodoListView extends Component {
-    render() {
-        return <div>
+    return (
+        <div>
+            <h1>App</h1>
             <ul>
-                {this.props.todoList.todos.map(todo =>
-                    <TodoView key={todo.id}
-                        todo={todo}
-                    />
-                )}
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/inbox">Inbox</Link></li>
             </ul>
-            Tasks left: {this.props.todoList.unfinishedTodoCount}
-        </div>;
-    }
+            {this.props.children}
+        </div>
+    );
 }
 
-const TodoView = observer(({todo}) =>
-    <li>
-        <input
-            checked={todo.finished}
-            onClick={() => todo.finished = !todo.finished}
-            type="checkbox"
-        />{todo.title}
-    </li>
-);
+function About (){
+    return (
+        <h3>About</h3>
+    );
+}
 
 
+function Inbox(props){
+    return (
+        <div>
+            <h2>Inbox</h2>
+            {props.children || 'Welcome to your Inbox'}
+        </div>
+    );
+}
 
-const store = new TodoList();
-store.todos.push({
-    id:1,
-    finished:true
-},{
-    id:2,
-    finished:false
-},{
-    id:3,
-    finished:true
-});
-setTimeout(()=>{
-    store.todos.push({
-        id:4,
-        finished:false
-    });
-},3000);
-ReactDOM.render(<TodoListView todoList={store} />, document.getElementById('app'));
+
+function Message(props){
+    return <h3>Message {props.params.id}</h3>;
+}
+
+function Hello({match}){
+    console.log(match);
+    return <h1>Hello World111</h1>;
+}
+
+function Hello2(){
+    return <h1>Hello World2222</h1>;
+}
+
+const Router = ()=>{
+    return (
+        <HashRouter>
+            <Switch>
+                <Route component={Hello} exact path="/"/>
+                <Route component={Hello2} exact path="/detail"/>
+            </Switch>
+        </HashRouter>
+    );
+};
+
+ReactDOM.render((
+    <Router/>
+), document.getElementById('app'));
