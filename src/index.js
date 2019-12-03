@@ -1,45 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter, Route, Switch} from 'react-router-dom';
+import {Select} from 'choerodon-ui';
+import 'choerodon-ui/dist/choerodon-ui.css';
+import './app.css';
+const {Option} = Select;
 
-function App(){
-
-    return (
-        <div>
-            <h1>App</h1>
-            <ul>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/inbox">Inbox</Link></li>
-            </ul>
-            {this.props.children}
-        </div>
-    );
-}
-
-function About (){
-    return (
-        <h3>About</h3>
-    );
-}
-
-
-function Inbox(props){
-    return (
-        <div>
-            <h2>Inbox</h2>
-            {props.children || 'Welcome to your Inbox'}
-        </div>
-    );
-}
-
-
-function Message(props){
-    return <h3>Message {props.params.id}</h3>;
-}
 
 function Hello({match}){
     console.log(match);
-    return <h1>Hello World111</h1>;
+    return (
+        <div>
+
+        </div>
+    );
 }
 
 function Hello2(){
@@ -57,6 +31,27 @@ const Router = ()=>{
     );
 };
 
+
+
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+    }
+    componentDidMount(){
+        if(this.h){
+            console.log(this.h.offsetWidth);
+        }
+    }
+    render(){
+        return (
+            <h1 ref={(h=>{console.log(h); this.h=h;})}>Hello</h1>
+        );
+    }
+}
+
+
+
 ReactDOM.render((
-    <Router/>
+    <App/>
 ), document.getElementById('app'));
